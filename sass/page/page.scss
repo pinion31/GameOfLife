@@ -1,0 +1,48 @@
+body {
+  background-color: $body-bg-color;
+  margin: 0;
+}
+
+#app {
+
+}
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.top-banner {
+  background-color:$top-banner-bg-color;
+
+  h1 {
+    text-align: center;
+  }
+
+}
+
+.header {
+    float: left;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+    font-size: 30px;
+}
+
+.brand {
+  float:none;
+  font-size: 30px;
+}
+
+.nav-align {
+  margin-right: 40px;
+}
+
+.action-button {
+  text-align: center;
+}
+
+.board-holder {
+  margin: auto;
+}
+

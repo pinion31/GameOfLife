@@ -1,0 +1,50 @@
+body {
+  background-color: #870F0F;
+  margin: 0; }
+
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top; }
+
+.top-banner {
+  background-color: #454545; }
+  .top-banner h1 {
+    text-align: center; }
+
+.header {
+  float: left;
+  padding: 15px;
+  text-align: center;
+  width: 100%;
+  font-size: 30px; }
+
+.brand {
+  float: none;
+  font-size: 30px; }
+
+.nav-align {
+  margin-right: 40px; }
+
+.action-button {
+  text-align: center; }
+
+.board-holder {
+  margin: auto; }
+
+.board {
+  background-color: #454545; }
+
+.row {
+  display: flex;
+  justify-content: center; }
+
+.cell {
+  margin: 0;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  border: 1px solid gray; }
+
+.cell-dead {
+  background-color: black; }
