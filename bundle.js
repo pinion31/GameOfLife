@@ -40,35 +40,59 @@ var Board = function (_Component) {
   }
 
   _createClass(Board, [{
+    key: '_generateBoard',
+    value: function _generateBoard() {
+      var i = void 0;
+      var rows = [];
+      for (i = 0; i < 50; i++) {
+        var columns = function columns() {
+          var n = void 0;
+          var col = [];
+
+          for (n = 0; n < 50; n++) {
+            col.push(_react2.default.createElement(_Cell2.default, { key: n }));
+          }
+          return col;
+        };
+
+        rows.push(_react2.default.createElement(
+          'div',
+          { className: 'row', key: i },
+          columns()
+        ));
+      }
+
+      return rows;
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'div',
         { className: 'board' },
-        _react2.default.createElement(
-          'div',
-          { className: 'row' },
-          _react2.default.createElement(_Cell2.default, null),
-          _react2.default.createElement(_Cell2.default, null),
-          _react2.default.createElement(_Cell2.default, null),
-          _react2.default.createElement(_Cell2.default, null),
-          _react2.default.createElement(_Cell2.default, null)
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'row' },
-          _react2.default.createElement(_Cell2.default, null),
-          _react2.default.createElement(_Cell2.default, null),
-          _react2.default.createElement(_Cell2.default, null),
-          _react2.default.createElement(_Cell2.default, null),
-          _react2.default.createElement(_Cell2.default, null)
-        )
+        this._generateBoard()
       );
     }
   }]);
 
   return Board;
 }(_react.Component);
+
+/*
+     <div className="row">
+       <Cell></Cell>
+       <Cell></Cell>
+       <Cell></Cell>
+       <Cell></Cell>
+       <Cell></Cell>
+     </div>
+     <div className="row">
+       <Cell></Cell>
+       <Cell></Cell>
+       <Cell></Cell>
+       <Cell></Cell>
+       <Cell></Cell>
+     </div>*/
 
 exports.default = Board;
 },{"./Cell":2,"react":437,"react-dom":265}],2:[function(require,module,exports){
@@ -104,7 +128,11 @@ var Cell = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Cell.__proto__ || Object.getPrototypeOf(Cell)).call(this, props));
 
-    _this.state = {};
+    _this.state = {
+      row: _this.props.row,
+      column: _this.props.column,
+      status: _this.props.status
+    };
     return _this;
   }
 
@@ -186,7 +214,7 @@ _reactDom2.default.render(_react2.default.createElement(
     ),
     _react2.default.createElement(
       _reactBootstrap.Row,
-      { className: 'show-grid' },
+      { className: 'show-grid board-holder' },
       _react2.default.createElement(
         _reactBootstrap.Col,
         { xs: 8, md: 8 },

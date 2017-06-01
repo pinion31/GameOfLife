@@ -39,12 +39,14 @@ body {
   display: flex;
   justify-content: center; }
 
+.cell-dead {
+  background-color: black; }
+
 .cell {
   margin: 0;
   padding: 0;
   width: 20px;
-  height: 20px;
+  height: 15px;
   border: 1px solid gray; }
-
-.cell-dead {
-  background-color: black; }
+  .cell:hover {
+    background-color: #CBFF7D; }

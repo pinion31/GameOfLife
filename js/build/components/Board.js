@@ -39,34 +39,58 @@ var Board = function (_Component) {
   }
 
   _createClass(Board, [{
+    key: '_generateBoard',
+    value: function _generateBoard() {
+      var i = void 0;
+      var rows = [];
+      for (i = 0; i < 50; i++) {
+        var columns = function columns() {
+          var n = void 0;
+          var col = [];
+
+          for (n = 0; n < 50; n++) {
+            col.push(_react2.default.createElement(_Cell2.default, { key: n }));
+          }
+          return col;
+        };
+
+        rows.push(_react2.default.createElement(
+          'div',
+          { className: 'row', key: i },
+          columns()
+        ));
+      }
+
+      return rows;
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'div',
         { className: 'board' },
-        _react2.default.createElement(
-          'div',
-          { className: 'row' },
-          _react2.default.createElement(_Cell2.default, null),
-          _react2.default.createElement(_Cell2.default, null),
-          _react2.default.createElement(_Cell2.default, null),
-          _react2.default.createElement(_Cell2.default, null),
-          _react2.default.createElement(_Cell2.default, null)
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'row' },
-          _react2.default.createElement(_Cell2.default, null),
-          _react2.default.createElement(_Cell2.default, null),
-          _react2.default.createElement(_Cell2.default, null),
-          _react2.default.createElement(_Cell2.default, null),
-          _react2.default.createElement(_Cell2.default, null)
-        )
+        this._generateBoard()
       );
     }
   }]);
 
   return Board;
 }(_react.Component);
+
+/*
+     <div className="row">
+       <Cell></Cell>
+       <Cell></Cell>
+       <Cell></Cell>
+       <Cell></Cell>
+       <Cell></Cell>
+     </div>
+     <div className="row">
+       <Cell></Cell>
+       <Cell></Cell>
+       <Cell></Cell>
+       <Cell></Cell>
+       <Cell></Cell>
+     </div>*/
 
 exports.default = Board;

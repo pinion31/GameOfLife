@@ -30,7 +30,11 @@ var Cell = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Cell.__proto__ || Object.getPrototypeOf(Cell)).call(this, props));
 
-    _this.state = {};
+    _this.state = {
+      row: _this.props.row,
+      column: _this.props.column,
+      status: _this.props.status
+    };
     return _this;
   }
 
