@@ -40,6 +40,7 @@ class Board extends Component {
 
   }
 
+//returns count of surrounding cells given a cell coordinate
   _countNeighbors(boardState, cell) {
    //ex cell = {row:1,col:2}
 
@@ -61,6 +62,7 @@ class Board extends Component {
 
   return count;
 }
+
   render() {
     return (
       <div className="board">
