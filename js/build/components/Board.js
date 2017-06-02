@@ -38,6 +38,9 @@ var Board = function (_Component) {
     return _this;
   }
 
+  //generate matrix of cells with rows and columns
+
+
   _createClass(Board, [{
     key: '_generateBoard',
     value: function _generateBoard() {
@@ -60,8 +63,32 @@ var Board = function (_Component) {
           columns()
         ));
       }
-
       return rows;
+    }
+
+    //returns count of surrounding cells given a cell coordinate
+
+  }, {
+    key: '_countNeighbors',
+    value: function _countNeighbors(boardState, cell) {
+      //ex cell = {row:1,col:2}
+
+      var count = 0;
+
+      var clockWiseCellOffset = [[-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1], [-1, 0]];
+
+      var cellsToCheck = clockWiseCellOffset.map(function (cellOffset) {
+        cellOffset[0] += cell.row;
+        cellOffset[1] += cell.column;
+      });
+
+      cellsToCheck.map(function (cellNum) {
+        if (boardState[cellNum[0]][cellNum[1]] === 1) {
+          count += 1;
+        }
+      });
+
+      return count;
     }
   }, {
     key: 'render',
@@ -76,21 +103,5 @@ var Board = function (_Component) {
 
   return Board;
 }(_react.Component);
-
-/*
-     <div className="row">
-       <Cell></Cell>
-       <Cell></Cell>
-       <Cell></Cell>
-       <Cell></Cell>
-       <Cell></Cell>
-     </div>
-     <div className="row">
-       <Cell></Cell>
-       <Cell></Cell>
-       <Cell></Cell>
-       <Cell></Cell>
-       <Cell></Cell>
-     </div>*/
 
 exports.default = Board;

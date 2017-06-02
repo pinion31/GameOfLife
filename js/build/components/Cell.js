@@ -33,15 +33,30 @@ var Cell = function (_Component) {
     _this.state = {
       row: _this.props.row,
       column: _this.props.column,
-      status: _this.props.status
+      status: _this.props.status,
+      classProp: "cell cell-dead"
     };
     return _this;
   }
 
   _createClass(Cell, [{
+    key: 'setCellToLive',
+    value: function setCellToLive() {
+      this.setState({
+        classProp: "cell cell-alive"
+      });
+    }
+  }, {
+    key: 'setCellToDead',
+    value: function setCellToDead() {
+      this.setState({
+        classProp: "cell cell-dead"
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('div', { className: 'cell cell-dead' });
+      return _react2.default.createElement('div', { className: this.state.classProp, onClick: this.setCellToLive.bind(this) });
     }
   }]);
 

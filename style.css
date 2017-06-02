@@ -50,3 +50,6 @@ body {
   border: 1px solid gray; }
   .cell:hover {
     background-color: #CBFF7D; }
+
+.cell-alive {
+  background-color: #97F20F; }

@@ -1,14 +1,13 @@
 
-
-export default clearBoard(board) {
- board.map((row) => {
+export const clearBoard = (board) => {
+  board.map((row) => {
     return row.map((column) => {
      column = 0;
-    }
-
+    });
+  });
 }
 
-export default initBoard(rowMax, columnMax) {
+export const initBoard = (rowMax, columnMax) => {
   let i, n;
   let currentBoard = [];
 
@@ -16,7 +15,7 @@ export default initBoard(rowMax, columnMax) {
     currentBoard.push([]);
 
     for (i=0; i < columnMax; i++) {
-       currentBoard[n].push(0);
+       currentBoard[n].push({status:dead, neighborCount:0, row:n. column:i});
     }
   }
   return currentBoard;
@@ -25,7 +24,7 @@ export default initBoard(rowMax, columnMax) {
 
 //kill or birth
 //receives and returns an Array as state
-export default changeCell(state, row, column, status) {
+export const changeCell = (state, row, column, status) => {
   let arr = Array.from(state);
   arr [row][column] = status;
   return arr;

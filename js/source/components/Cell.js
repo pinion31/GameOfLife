@@ -10,12 +10,25 @@ class Cell extends Component {
       row:this.props.row,
       column:this.props.column,
       status:this.props.status,
+      classProp: "cell cell-dead",
     };
+  }
+
+  setCellToLive() {
+    this.setState ({
+      classProp:"cell cell-alive",
+    });
+  }
+
+  setCellToDead() {
+    this.setState ({
+      classProp:"cell cell-dead",
+    });
   }
 
   render() {
     return (
-      <div className= "cell cell-dead">
+      <div className= {this.state.classProp} onClick={this.setCellToLive.bind(this)}>
       </div>
     );
 

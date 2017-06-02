@@ -9,7 +9,7 @@ class Board extends Component {
     super(props);
 
     this.state = {
-
+      board:{},
     };
   }
 
@@ -35,9 +35,7 @@ class Board extends Component {
       );
 
     }
-
     return rows;
-
   }
 
 //returns count of surrounding cells given a cell coordinate
@@ -65,8 +63,9 @@ class Board extends Component {
 
   render() {
     return (
+
       <div className="board">
-      { this._generateBoard()}
+      {this._generateBoard()}
       </div>
     );
 
