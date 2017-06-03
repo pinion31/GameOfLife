@@ -1,11 +1,11 @@
 
-import {boardReducer} from "boardReducer";
-import {dimenReducer} from "dimenReducer";
+import {boardReducer} from "./boardReducer";
+//import {dimenReducer} from "dimenReducer";
 
-export default rootReducer = ({state,action}) => {
+export const rootReducer = (state,action) => {
   return Object.assign({}, state,
    {  board:boardReducer(state.board, action),
-      dimensions:dimenReducer(state.dimensions, action)
+
    });
 
 }

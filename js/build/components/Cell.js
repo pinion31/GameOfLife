@@ -42,6 +42,8 @@ var Cell = function (_Component) {
   _createClass(Cell, [{
     key: 'setCellToLive',
     value: function setCellToLive() {
+      store.dispatch("CHANGE_CELL", this.state.row, this.state.column, "live");
+
       this.setState({
         classProp: "cell cell-alive"
       });
@@ -49,6 +51,8 @@ var Cell = function (_Component) {
   }, {
     key: 'setCellToDead',
     value: function setCellToDead() {
+      store.dispatch("CHANGE_CELL", this.state.row, this.state.column, "dead");
+
       this.setState({
         classProp: "cell cell-dead"
       });

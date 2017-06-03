@@ -3,16 +3,14 @@
 Object.defineProperty(exports, "__esModule", {
    value: true
 });
+exports.rootReducer = undefined;
 
-var _boardReducer = require("boardReducer");
+var _boardReducer = require("./boardReducer");
 
-var _dimenReducer = require("dimenReducer");
+//import {dimenReducer} from "dimenReducer";
 
-exports.default = rootReducer = function rootReducer(_ref) {
-   var state = _ref.state,
-       action = _ref.action;
+var rootReducer = exports.rootReducer = function rootReducer(state, action) {
+   return Object.assign({}, state, { board: (0, _boardReducer.boardReducer)(state.board, action)
 
-   return Object.assign({}, state, { board: (0, _boardReducer.boardReducer)(state.board, action),
-      dimensions: (0, _dimenReducer.dimenReducer)(state.dimensions, action)
    });
 };

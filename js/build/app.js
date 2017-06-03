@@ -12,6 +12,10 @@ var _Board = require('./components/Board');
 
 var _Board2 = _interopRequireDefault(_Board);
 
+var _BoardStore = require('./store/BoardStore');
+
+var _BoardStore2 = _interopRequireDefault(_BoardStore);
+
 var _reactBootstrap = require('react-bootstrap');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

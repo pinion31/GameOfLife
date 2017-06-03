@@ -15,12 +15,16 @@ class Cell extends Component {
   }
 
   setCellToLive() {
+    store.dispatch("CHANGE_CELL",this.state.row, this.state.column, "live");
+
     this.setState ({
       classProp:"cell cell-alive",
     });
   }
 
   setCellToDead() {
+    store.dispatch("CHANGE_CELL",this.state.row, this.state.column, "dead");
+
     this.setState ({
       classProp:"cell cell-dead",
     });
