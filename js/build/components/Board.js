@@ -38,16 +38,16 @@ var Board = function (_Component) {
   function Board(props) {
     _classCallCheck(this, Board);
 
-    var _this = _possibleConstructorReturn(this, (Board.__proto__ || Object.getPrototypeOf(Board)).call(this, props));
+    //store.dispatch(initBoard(10,10));
 
-    _BoardStore.store.dispatch((0, _actionCreators.initBoard)(10, 10));
+    var _this = _possibleConstructorReturn(this, (Board.__proto__ || Object.getPrototypeOf(Board)).call(this, props));
 
     _this.state = {
       board: _BoardStore.store.getState().board
-
     };
 
     _BoardStore.store.subscribe(_this.updateBoardUI.bind(_this));
+
     return _this;
   }
 
@@ -84,6 +84,7 @@ var Board = function (_Component) {
           var col = [];
 
           for (n = 0; n < numOfColumns; n++) {
+            //console.log("cellstatus =" + state[i][n].status);
             col.push(_react2.default.createElement(_Cell2.default, { key: n, status: state[i][n].status }));
           }
           return col;
@@ -136,7 +137,6 @@ var Board = function (_Component) {
     key: 'render',
     value: function render() {
       //let newState = store.getState().board;
-
       return _react2.default.createElement(
         'div',
         { className: 'board' },

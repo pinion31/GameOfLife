@@ -18,7 +18,7 @@ class Cell extends Component {
     store.dispatch("CHANGE_CELL",this.state.row, this.state.column, "live");
 
     this.setState ({
-      classProp:"cell cell-alive",
+      status:"cell cell-alive",
     });
   }
 
@@ -26,13 +26,13 @@ class Cell extends Component {
     store.dispatch("CHANGE_CELL",this.state.row, this.state.column, "dead");
 
     this.setState ({
-      classProp:"cell cell-dead",
+      status:"cell cell-dead",
     });
   }
 
   render() {
     return (
-      <div className= {this.state.classProp} onClick={this.setCellToLive.bind(this)}>
+      <div className= {this.state.status} onClick={this.setCellToLive.bind(this)}>
       </div>
     );
 

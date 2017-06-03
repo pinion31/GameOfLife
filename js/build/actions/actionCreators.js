@@ -8,7 +8,9 @@ exports.updateBoard = exports.changeCell = exports.initBoard = undefined;
 var _actionTypes = require("../constants/action-types");
 
 //board: [[]], dimensions: {numofRows:50, numOfColumns:50}}
-var initBoard = exports.initBoard = function initBoard(maxRows, maxColumns) {
+var initBoard = exports.initBoard = function initBoard() {
+  var maxRows = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 10;
+  var maxColumns = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 10;
   return {
     type: _actionTypes.INIT_BOARD,
     numOfRows: maxRows,

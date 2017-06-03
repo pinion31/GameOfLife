@@ -45,7 +45,7 @@ var Cell = function (_Component) {
       store.dispatch("CHANGE_CELL", this.state.row, this.state.column, "live");
 
       this.setState({
-        classProp: "cell cell-alive"
+        status: "cell cell-alive"
       });
     }
   }, {
@@ -54,13 +54,13 @@ var Cell = function (_Component) {
       store.dispatch("CHANGE_CELL", this.state.row, this.state.column, "dead");
 
       this.setState({
-        classProp: "cell cell-dead"
+        status: "cell cell-dead"
       });
     }
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('div', { className: this.state.classProp, onClick: this.setCellToLive.bind(this) });
+      return _react2.default.createElement('div', { className: this.state.status, onClick: this.setCellToLive.bind(this) });
     }
   }]);
 

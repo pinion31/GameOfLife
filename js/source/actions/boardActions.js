@@ -1,15 +1,6 @@
 
-/*
-const getRandomIntInclusive = (min, max) => {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1)) + min;
- }
-export const randomizeCell = () => {
-  return getRandomIntInclusive(0,100) > 90? "cell cell-live": "cell cell-dead";
-}*/
 
-export const initBoard = (rowMax, columnMax) => {
+export const initBoard = (rowMax=10, columnMax=10) => {
   let i, n;
   let currentBoard = [];
 
@@ -19,10 +10,8 @@ export const initBoard = (rowMax, columnMax) => {
           let max = Math.floor(100);
 
           let random = Math.floor(Math.random() * (max - min + 1)) + min;
-          if (random > 50) {
-            console.log("alive");
-          }
-          return random > 50? "cell cell-alive": "cell cell-dead";
+          //if (random > 50) { console.log("alive"); }
+          return random > 90? "cell cell-alive": "cell cell-dead";
 
    };
 

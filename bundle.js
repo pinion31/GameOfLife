@@ -9,7 +9,9 @@ exports.updateBoard = exports.changeCell = exports.initBoard = undefined;
 var _actionTypes = require("../constants/action-types");
 
 //board: [[]], dimensions: {numofRows:50, numOfColumns:50}}
-var initBoard = exports.initBoard = function initBoard(maxRows, maxColumns) {
+var initBoard = exports.initBoard = function initBoard() {
+  var maxRows = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 10;
+  var maxColumns = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 10;
   return {
     type: _actionTypes.INIT_BOARD,
     numOfRows: maxRows,
@@ -38,18 +40,10 @@ var updateBoard = exports.updateBoard = function updateBoard(state) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+var initBoard = exports.initBoard = function initBoard() {
+  var rowMax = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 10;
+  var columnMax = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 10;
 
-/*
-const getRandomIntInclusive = (min, max) => {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1)) + min;
- }
-export const randomizeCell = () => {
-  return getRandomIntInclusive(0,100) > 90? "cell cell-live": "cell cell-dead";
-}*/
-
-var initBoard = exports.initBoard = function initBoard(rowMax, columnMax) {
   var i = void 0,
       n = void 0;
   var currentBoard = [];
@@ -60,10 +54,8 @@ var initBoard = exports.initBoard = function initBoard(rowMax, columnMax) {
     var max = Math.floor(100);
 
     var random = Math.floor(Math.random() * (max - min + 1)) + min;
-    if (random > 50) {
-      console.log("alive");
-    }
-    return random > 50 ? "cell cell-alive" : "cell cell-dead";
+    //if (random > 50) { console.log("alive"); }
+    return random > 90 ? "cell cell-alive" : "cell cell-dead";
   };
 
   for (n = 0; n < rowMax; n++) {
@@ -133,16 +125,16 @@ var Board = function (_Component) {
   function Board(props) {
     _classCallCheck(this, Board);
 
-    var _this = _possibleConstructorReturn(this, (Board.__proto__ || Object.getPrototypeOf(Board)).call(this, props));
+    //store.dispatch(initBoard(10,10));
 
-    _BoardStore.store.dispatch((0, _actionCreators.initBoard)(10, 10));
+    var _this = _possibleConstructorReturn(this, (Board.__proto__ || Object.getPrototypeOf(Board)).call(this, props));
 
     _this.state = {
       board: _BoardStore.store.getState().board
-
     };
 
     _BoardStore.store.subscribe(_this.updateBoardUI.bind(_this));
+
     return _this;
   }
 
@@ -179,6 +171,7 @@ var Board = function (_Component) {
           var col = [];
 
           for (n = 0; n < numOfColumns; n++) {
+            //console.log("cellstatus =" + state[i][n].status);
             col.push(_react2.default.createElement(_Cell2.default, { key: n, status: state[i][n].status }));
           }
           return col;
@@ -231,7 +224,6 @@ var Board = function (_Component) {
     key: 'render',
     value: function render() {
       //let newState = store.getState().board;
-
       return _react2.default.createElement(
         'div',
         { className: 'board' },
@@ -292,7 +284,7 @@ var Cell = function (_Component) {
       store.dispatch("CHANGE_CELL", this.state.row, this.state.column, "live");
 
       this.setState({
-        classProp: "cell cell-alive"
+        status: "cell cell-alive"
       });
     }
   }, {
@@ -301,13 +293,13 @@ var Cell = function (_Component) {
       store.dispatch("CHANGE_CELL", this.state.row, this.state.column, "dead");
 
       this.setState({
-        classProp: "cell cell-dead"
+        status: "cell cell-dead"
       });
     }
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('div', { className: this.state.classProp, onClick: this.setCellToLive.bind(this) });
+      return _react2.default.createElement('div', { className: this.state.status, onClick: this.setCellToLive.bind(this) });
     }
   }]);
 
@@ -474,10 +466,6 @@ var initialState = { board: [[{}]] };
 var store = exports.store = (0, _redux.createStore)(_root.rootReducer, initialState);
 
 store.dispatch((0, _actionCreators.initBoard)(10, 10)); //inits boarddata, not board display
-//  .then (Board.updateBoardUI());
-//store.subscribe(Board.updateBoardUI);
-//console.log("test");
-console.log(store.getState());
 
 window.store = store;
 },{"../actions/actionCreators":1,"../components/Board":3,"../reducers/root":8,"redux":449}],10:[function(require,module,exports){

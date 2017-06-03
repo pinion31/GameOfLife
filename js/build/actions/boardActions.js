@@ -3,18 +3,10 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+var initBoard = exports.initBoard = function initBoard() {
+  var rowMax = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 10;
+  var columnMax = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 10;
 
-/*
-const getRandomIntInclusive = (min, max) => {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1)) + min;
- }
-export const randomizeCell = () => {
-  return getRandomIntInclusive(0,100) > 90? "cell cell-live": "cell cell-dead";
-}*/
-
-var initBoard = exports.initBoard = function initBoard(rowMax, columnMax) {
   var i = void 0,
       n = void 0;
   var currentBoard = [];
@@ -25,10 +17,8 @@ var initBoard = exports.initBoard = function initBoard(rowMax, columnMax) {
     var max = Math.floor(100);
 
     var random = Math.floor(Math.random() * (max - min + 1)) + min;
-    if (random > 50) {
-      console.log("alive");
-    }
-    return random > 50 ? "cell cell-alive" : "cell cell-dead";
+    //if (random > 50) { console.log("alive"); }
+    return random > 90 ? "cell cell-alive" : "cell cell-dead";
   };
 
   for (n = 0; n < rowMax; n++) {
