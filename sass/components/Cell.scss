@@ -7,7 +7,7 @@
   margin:0;
   padding: 0;
   width: 20px;
-  height: 15px;
+  height: 20px;
   border: 1px solid $cell-border-color;
 
   &:hover {
@@ -17,6 +17,5 @@
 
 .cell-alive {
   background-color:$live-cell-color;
-
 }
 

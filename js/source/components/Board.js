@@ -28,7 +28,7 @@ class Board extends Component {
     store.dispatch("UPDATE_BOARD");
 
     let newBoard = store.getState();
-    console.log("new Board = " + newBoard);
+   // console.log("new Board = " + newBoard);
     this.setState({
       board:newBoard,
     });
@@ -45,7 +45,7 @@ class Board extends Component {
 
         for (n=0;n < numOfColumns;n++) {
           //console.log("cellstatus =" + state[i][n].status);
-          col.push(<Cell key={n} status={state[i][n].status}></Cell>);
+          col.push(<Cell key={n} status={state[i][n].status} row= {i} column= {n}></Cell>);
         }
           return col;
       };
@@ -67,7 +67,7 @@ class Board extends Component {
       board: newBoard,
     });
 
-    console.log("updating the board with " + newBoard );
+ //  console.log("updating the board with " + newBoard );
   }
 //returns count of surrounding cells given a cell coordinate
   _countNeighbors(boardState, cell) {

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Component, PropTypes} from 'react';
+import {changeCell} from '../actions/actionCreators';
 
 class Cell extends Component {
 
@@ -15,7 +16,7 @@ class Cell extends Component {
   }
 
   setCellToLive() {
-    store.dispatch("CHANGE_CELL",this.state.row, this.state.column, "live");
+    store.dispatch(changeCell(this.state.row, this.state.column, "alive"));
 
     this.setState ({
       status:"cell cell-alive",
@@ -23,7 +24,7 @@ class Cell extends Component {
   }
 
   setCellToDead() {
-    store.dispatch("CHANGE_CELL",this.state.row, this.state.column, "dead");
+    store.dispatch(changeCell(store.getState(),this.state.row, this.state.column, "dead"));
 
     this.setState ({
       status:"cell cell-dead",

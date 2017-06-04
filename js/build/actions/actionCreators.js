@@ -18,7 +18,7 @@ var initBoard = exports.initBoard = function initBoard() {
   };
 };
 
-var changeCell = exports.changeCell = function changeCell(state, cellRow, cellColumn, cellStatus) {
+var changeCell = exports.changeCell = function changeCell(cellRow, cellColumn, cellStatus) {
   return {
     type: _actionTypes.CHANGE_CELL,
     row: cellRow,

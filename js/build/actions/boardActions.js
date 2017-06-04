@@ -42,8 +42,10 @@ var clearBoard = exports.clearBoard = function clearBoard(board) {
 };
 //kill or birth
 //receives and returns an Array as state
-var changeCell = exports.changeCell = function changeCell(state, row, column, status) {
+var changeCell = exports.changeCell = function changeCell(state, row, column, cellStatus) {
+
+  console.log("action =" + action);
   var arr = Array.from(state);
-  arr[row][column] = status;
+  arr[row][column].status = cellStatus === "dead" ? "cell cell-dead" : "cell cell-alive";
   return arr;
 };

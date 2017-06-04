@@ -8,6 +8,6 @@ import {updateBoardUI} from '../components/Board';
 let initialState = {board:[[{}]]};
 export const store = createStore(rootReducer, initialState);
 
-store.dispatch(initBoard(10,10)); //inits boarddata, not board display
+store.dispatch(initBoard(25,25)); //inits boarddata, not board display
 
 window.store = store;

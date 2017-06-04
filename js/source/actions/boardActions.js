@@ -36,8 +36,8 @@ export const clearBoard = (board) => {
 }
 //kill or birth
 //receives and returns an Array as state
-export const changeCell = (state, row, column, status) => {
+export const changeCell = (state, row, column, cellStatus) => {
   let arr = Array.from(state);
-  arr [row][column] = status;
+  arr [row][column].status = cellStatus === "dead"? "cell cell-dead":"cell cell-alive";
   return arr;
 }

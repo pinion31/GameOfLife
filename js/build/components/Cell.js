@@ -14,6 +14,8 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _actionCreators = require('../actions/actionCreators');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -42,7 +44,9 @@ var Cell = function (_Component) {
   _createClass(Cell, [{
     key: 'setCellToLive',
     value: function setCellToLive() {
-      store.dispatch("CHANGE_CELL", this.state.row, this.state.column, "live");
+      console.log("setCellToLive col = " + this.state.column);
+      console.log((0, _actionCreators.changeCell)(this.state.row, this.state.column, "alive"));
+      store.dispatch((0, _actionCreators.changeCell)(this.state.row, this.state.column, "alive"));
 
       this.setState({
         status: "cell cell-alive"
@@ -51,7 +55,7 @@ var Cell = function (_Component) {
   }, {
     key: 'setCellToDead',
     value: function setCellToDead() {
-      store.dispatch("CHANGE_CELL", this.state.row, this.state.column, "dead");
+      store.dispatch((0, _actionCreators.changeCell)(store.getState(), this.state.row, this.state.column, "dead"));
 
       this.setState({
         status: "cell cell-dead"

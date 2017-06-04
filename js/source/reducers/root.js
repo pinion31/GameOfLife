@@ -1,5 +1,6 @@
 
 import {boardReducer} from "./boardReducer";
+import {store} from "../store/BoardStore";
 //import {dimenReducer} from "dimenReducer";
 
 export const rootReducer = (state,action) => {

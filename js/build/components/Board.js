@@ -38,8 +38,6 @@ var Board = function (_Component) {
   function Board(props) {
     _classCallCheck(this, Board);
 
-    //store.dispatch(initBoard(10,10));
-
     var _this = _possibleConstructorReturn(this, (Board.__proto__ || Object.getPrototypeOf(Board)).call(this, props));
 
     _this.state = {
@@ -85,7 +83,7 @@ var Board = function (_Component) {
 
           for (n = 0; n < numOfColumns; n++) {
             //console.log("cellstatus =" + state[i][n].status);
-            col.push(_react2.default.createElement(_Cell2.default, { key: n, status: state[i][n].status }));
+            col.push(_react2.default.createElement(_Cell2.default, { key: n, status: state[i][n].status, row: i, column: n }));
           }
           return col;
         };

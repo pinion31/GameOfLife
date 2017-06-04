@@ -19,7 +19,7 @@ var initBoard = exports.initBoard = function initBoard() {
   };
 };
 
-var changeCell = exports.changeCell = function changeCell(state, cellRow, cellColumn, cellStatus) {
+var changeCell = exports.changeCell = function changeCell(cellRow, cellColumn, cellStatus) {
   return {
     type: _actionTypes.CHANGE_CELL,
     row: cellRow,
@@ -79,9 +79,11 @@ var clearBoard = exports.clearBoard = function clearBoard(board) {
 };
 //kill or birth
 //receives and returns an Array as state
-var changeCell = exports.changeCell = function changeCell(state, row, column, status) {
+var changeCell = exports.changeCell = function changeCell(state, row, column, cellStatus) {
+
+  //console.log("action =" + action);
   var arr = Array.from(state);
-  arr[row][column] = status;
+  arr[row][column].status = cellStatus === "dead" ? "cell cell-dead" : "cell cell-alive";
   return arr;
 };
 },{}],3:[function(require,module,exports){
@@ -124,8 +126,6 @@ var Board = function (_Component) {
 
   function Board(props) {
     _classCallCheck(this, Board);
-
-    //store.dispatch(initBoard(10,10));
 
     var _this = _possibleConstructorReturn(this, (Board.__proto__ || Object.getPrototypeOf(Board)).call(this, props));
 
@@ -172,7 +172,7 @@ var Board = function (_Component) {
 
           for (n = 0; n < numOfColumns; n++) {
             //console.log("cellstatus =" + state[i][n].status);
-            col.push(_react2.default.createElement(_Cell2.default, { key: n, status: state[i][n].status }));
+            col.push(_react2.default.createElement(_Cell2.default, { key: n, status: state[i][n].status, row: i, column: n }));
           }
           return col;
         };
@@ -253,6 +253,8 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _actionCreators = require('../actions/actionCreators');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -281,7 +283,9 @@ var Cell = function (_Component) {
   _createClass(Cell, [{
     key: 'setCellToLive',
     value: function setCellToLive() {
-      store.dispatch("CHANGE_CELL", this.state.row, this.state.column, "live");
+      console.log("setCellToLive col = " + this.state.column);
+      console.log((0, _actionCreators.changeCell)(this.state.row, this.state.column, "alive"));
+      store.dispatch((0, _actionCreators.changeCell)(this.state.row, this.state.column, "alive"));
 
       this.setState({
         status: "cell cell-alive"
@@ -290,7 +294,7 @@ var Cell = function (_Component) {
   }, {
     key: 'setCellToDead',
     value: function setCellToDead() {
-      store.dispatch("CHANGE_CELL", this.state.row, this.state.column, "dead");
+      store.dispatch((0, _actionCreators.changeCell)(store.getState(), this.state.row, this.state.column, "dead"));
 
       this.setState({
         status: "cell cell-dead"
@@ -307,7 +311,7 @@ var Cell = function (_Component) {
 }(_react.Component);
 
 exports.default = Cell;
-},{"react":443,"react-dom":271}],5:[function(require,module,exports){
+},{"../actions/actionCreators":1,"react":443,"react-dom":271}],5:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -413,11 +417,12 @@ var _actionTypes = require("../constants/action-types");
 var _boardActions = require("../actions/boardActions");
 
 var boardReducer = exports.boardReducer = function boardReducer(state, action) {
+  console.log("boardReducer action " + action);
   switch (action.type) {
     case _actionTypes.INIT_BOARD:
       return (0, _boardActions.initBoard)(action.numOfRows, action.numOfColumns);
     case _actionTypes.CHANGE_CELL:
-      return (0, _boardActions.changeCell)(state, action.numOfRows, action.numOfColumns, action.newStatusForCell);
+      return (0, _boardActions.changeCell)(state, action.row, action.column, action.status);
     case _actionTypes.UPDATE_BOARD:
     case _actionTypes.CLEAR_BOARD:
       return clearBoard(state);
@@ -429,20 +434,24 @@ var boardReducer = exports.boardReducer = function boardReducer(state, action) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-   value: true
+  value: true
 });
 exports.rootReducer = undefined;
 
 var _boardReducer = require("./boardReducer");
 
+var _BoardStore = require("../store/BoardStore");
+
 //import {dimenReducer} from "dimenReducer";
 
 var rootReducer = exports.rootReducer = function rootReducer(state, action) {
-   return Object.assign({}, state, { board: (0, _boardReducer.boardReducer)(state.board, action)
+  console.log("state = " + state.board.length);
+  console.log("action = " + action.type);
+  return Object.assign({}, state, { board: (0, _boardReducer.boardReducer)(state.board, action)
 
-   });
+  });
 };
-},{"./boardReducer":7}],9:[function(require,module,exports){
+},{"../store/BoardStore":9,"./boardReducer":7}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -465,7 +474,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var initialState = { board: [[{}]] };
 var store = exports.store = (0, _redux.createStore)(_root.rootReducer, initialState);
 
-store.dispatch((0, _actionCreators.initBoard)(10, 10)); //inits boarddata, not board display
+store.dispatch((0, _actionCreators.initBoard)(25, 25)); //inits boarddata, not board display
 
 window.store = store;
 },{"../actions/actionCreators":1,"../components/Board":3,"../reducers/root":8,"redux":449}],10:[function(require,module,exports){
@@ -888,7 +897,7 @@ $export.P = 8;   // proto
 $export.B = 16;  // bind
 $export.W = 32;  // wrap
 $export.U = 64;  // safe
-$export.R = 128; // real proto method for `library` 
+$export.R = 128; // real proto method for `library`
 module.exports = $export;
 },{"./_core":39,"./_ctx":41,"./_global":49,"./_hide":51}],48:[function(require,module,exports){
 module.exports = function(exec){
@@ -2991,7 +3000,7 @@ module.exports = camelizeStyleName;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 var isTextNode = require('./isTextNode');
@@ -3246,7 +3255,7 @@ module.exports = createNodesFromMarkup;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 function makeEmptyFunction(arg) {
@@ -3687,7 +3696,7 @@ module.exports = isTextNode;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  * @typechecks static-only
  */
 
@@ -3775,7 +3784,7 @@ module.exports = performanceNow;
  * of patent rights can be found in the PATENTS file in the same directory.
  *
  * @typechecks
- * 
+ *
  */
 
 /*eslint-disable no-self-compare */
@@ -19041,7 +19050,7 @@ module.exports = CSSPropertyOperations;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -20780,7 +20789,7 @@ module.exports = EventPluginHub;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -21731,7 +21740,7 @@ module.exports = HTMLDOMPropertyConfig;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -21931,7 +21940,7 @@ module.exports = LinkedValueUtils;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -22559,7 +22568,7 @@ module.exports = ReactComponentBrowserEnvironment;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -26536,7 +26545,7 @@ module.exports = ReactDOMUnknownPropertyHook;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -27050,7 +27059,7 @@ module.exports = {
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -27101,7 +27110,7 @@ module.exports = ReactEmptyComponent;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -27366,7 +27375,7 @@ module.exports = ReactEventListener;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -27458,7 +27467,7 @@ module.exports = ReactHostComponent;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -27699,7 +27708,7 @@ module.exports = ReactInstanceMap;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -27725,7 +27734,7 @@ module.exports = { debugTool: debugTool };
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -28806,7 +28815,7 @@ module.exports = ReactMultiChild;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -28848,7 +28857,7 @@ module.exports = ReactNodeTypes;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -28944,7 +28953,7 @@ module.exports = ReactOwner;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -28970,7 +28979,7 @@ module.exports = ReactPropTypeLocationNames;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -29337,7 +29346,7 @@ module.exports = ReactReconciler;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -29519,7 +29528,7 @@ module.exports = ReactServerRenderingTransaction;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -30658,7 +30667,7 @@ module.exports = SelectEventPlugin;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -31733,7 +31742,7 @@ module.exports = SyntheticWheelEvent;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -31987,7 +31996,7 @@ module.exports = ViewportMetrics;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -32046,7 +32055,7 @@ module.exports = accumulateInto;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -32478,7 +32487,7 @@ module.exports = findDOMNode;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -32555,7 +32564,7 @@ module.exports = flattenChildren;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -32846,7 +32855,7 @@ module.exports = getHostComponentFromComposite;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -33286,7 +33295,7 @@ module.exports = isEventSupported;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -33363,7 +33372,7 @@ module.exports = quoteAttributeValueForBrowser;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 'use strict';
 
@@ -37808,7 +37817,7 @@ module.exports = ReactComponent;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -38143,7 +38152,7 @@ module.exports = ReactComponentTreeHook;
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -39112,7 +39121,7 @@ module.exports=require(349)
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';
@@ -39230,7 +39239,7 @@ module.exports=require(382)
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 'use strict';

@@ -7,14 +7,16 @@ export const initBoard=(maxRows=10, maxColumns=10) => ({
   numOfColumns: maxColumns,
 });
 
-export const changeCell=(state, cellRow, cellColumn, cellStatus) => ({
+export const changeCell=(cellRow, cellColumn, cellStatus) =>  ({
   type: CHANGE_CELL,
   row:cellRow,
   column:cellColumn,
   status:cellStatus,
 });
 
+
 export const updateBoard =(state) => ({
   type: UPDATE_BOARD,
   state: state,
 });
+
