@@ -12,7 +12,6 @@ export const initBoard = (rowMax=10, columnMax=10) => {
           let random = Math.floor(Math.random() * (max - min + 1)) + min;
           //if (random > 50) { console.log("alive"); }
           return random > 90? "cell cell-alive": "cell cell-dead";
-
    };
 
   for (n=0; n < rowMax; n++) {
@@ -22,12 +21,13 @@ export const initBoard = (rowMax=10, columnMax=10) => {
        currentBoard[n].push({status:random(), neighborCount:0, row:n, column:i});
     }
   }
- // console.log("currentBoard is " + currentBoard);
+  //console.log("currentBoard is " + currentBoard);
   return currentBoard;
 }
 
 //board as array
 export const clearBoard = (board) => {
+  console.log("board cleared " + board);
   board.map((row) => {
     return row.map((column) => {
      column = {status:"dead", neighborCount:0, row:board.indexOf(row), column:row.indexOf(column)};

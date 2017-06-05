@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateBoard = exports.changeCell = exports.initBoard = undefined;
+exports.startBoard = exports.clearBoard = exports.updateBoard = exports.changeCell = exports.initBoard = undefined;
 
 var _actionTypes = require("../constants/action-types");
 
@@ -31,5 +31,19 @@ var updateBoard = exports.updateBoard = function updateBoard(state) {
   return {
     type: _actionTypes.UPDATE_BOARD,
     state: state
+  };
+};
+
+var clearBoard = exports.clearBoard = function clearBoard(state) {
+  return {
+    type: _actionTypes.CLEAR_BOARD,
+    state: state
+  };
+};
+
+var startBoard = exports.startBoard = function startBoard(start) {
+  return {
+    type: _actionTypes.START_BOARD,
+    gameIsRunning: start
   };
 };

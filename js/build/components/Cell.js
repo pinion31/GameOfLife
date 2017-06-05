@@ -41,11 +41,16 @@ var Cell = function (_Component) {
     return _this;
   }
 
+  /*
+  componentWillUpdate() {
+    this.setState({
+      status:this.props.status,
+    });
+  }*/
+
   _createClass(Cell, [{
     key: 'setCellToLive',
     value: function setCellToLive() {
-      console.log("setCellToLive col = " + this.state.column);
-      console.log((0, _actionCreators.changeCell)(this.state.row, this.state.column, "alive"));
       store.dispatch((0, _actionCreators.changeCell)(this.state.row, this.state.column, "alive"));
 
       this.setState({
@@ -60,6 +65,26 @@ var Cell = function (_Component) {
       this.setState({
         status: "cell cell-dead"
       });
+    }
+
+    //this triggers re-render of cell based on new props (this.props.status) coming from parent (Board)
+    //like when board remounts new cell elements
+
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(newProps) {
+      this.setState({
+        status: newProps.status
+      });
+    }
+  }, {
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate(newProps, newState) {
+      if (newProps.status === this.state.status) {
+        return false;
+      } else {
+        return true;
+      }
     }
   }, {
     key: 'render',

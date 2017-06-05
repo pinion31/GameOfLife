@@ -15,6 +15,13 @@ class Cell extends Component {
     };
   }
 
+  /*
+  componentWillUpdate() {
+    this.setState({
+      status:this.props.status,
+    });
+  }*/
+
   setCellToLive() {
     store.dispatch(changeCell(this.state.row, this.state.column, "alive"));
 
@@ -29,6 +36,23 @@ class Cell extends Component {
     this.setState ({
       status:"cell cell-dead",
     });
+  }
+
+  //this triggers re-render of cell based on new props (this.props.status) coming from parent (Board)
+  //like when board remounts new cell elements
+  componentWillReceiveProps(newProps) {
+    this.setState ({
+      status: newProps.status,
+    });
+  }
+
+  shouldComponentUpdate(newProps, newState) {
+    if (newProps.status === this.state.status) {
+      return false;
+    }
+    else {
+      return true;
+    }
   }
 
   render() {

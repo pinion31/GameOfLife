@@ -1,4 +1,4 @@
-import {INIT_BOARD, CHANGE_CELL, UPDATE_BOARD} from "../constants/action-types";
+import {INIT_BOARD, CHANGE_CELL, UPDATE_BOARD,START_BOARD, CLEAR_BOARD} from "../constants/action-types";
 
 //board: [[]], dimensions: {numofRows:50, numOfColumns:50}}
 export const initBoard=(maxRows=10, maxColumns=10) => ({
@@ -14,9 +14,17 @@ export const changeCell=(cellRow, cellColumn, cellStatus) =>  ({
   status:cellStatus,
 });
 
-
 export const updateBoard =(state) => ({
   type: UPDATE_BOARD,
   state: state,
 });
 
+export const clearBoard =(state) => ({
+  type: CLEAR_BOARD,
+  state: state,
+});
+
+export const startBoard = (start) => ({
+  type: START_BOARD,
+  gameIsRunning: start,
+});

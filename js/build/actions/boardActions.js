@@ -28,12 +28,13 @@ var initBoard = exports.initBoard = function initBoard() {
       currentBoard[n].push({ status: random(), neighborCount: 0, row: n, column: i });
     }
   }
-  // console.log("currentBoard is " + currentBoard);
+  //console.log("currentBoard is " + currentBoard);
   return currentBoard;
 };
 
 //board as array
 var clearBoard = exports.clearBoard = function clearBoard(board) {
+  console.log("board cleared " + board);
   board.map(function (row) {
     return row.map(function (column) {
       column = { status: "dead", neighborCount: 0, row: board.indexOf(row), column: row.indexOf(column) };
@@ -43,8 +44,6 @@ var clearBoard = exports.clearBoard = function clearBoard(board) {
 //kill or birth
 //receives and returns an Array as state
 var changeCell = exports.changeCell = function changeCell(state, row, column, cellStatus) {
-
-  console.log("action =" + action);
   var arr = Array.from(state);
   arr[row][column].status = cellStatus === "dead" ? "cell cell-dead" : "cell cell-alive";
   return arr;
