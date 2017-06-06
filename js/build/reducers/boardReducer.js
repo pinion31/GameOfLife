@@ -22,6 +22,8 @@ var boardReducer = exports.boardReducer = function boardReducer(state, action) {
       (0, _Board.start)(action.gameIsRunning);
     case _actionTypes.CLEAR_BOARD:
       return (0, _boardActions.clearBoard)(state);
+    case _actionTypes.COUNT_CELLS:
+      return (0, _boardActions.countNeighborsForEntireBoard)(state, action.maxLength);
     default:
       return state;
   }

@@ -80,11 +80,14 @@ var Cell = function (_Component) {
   }, {
     key: 'shouldComponentUpdate',
     value: function shouldComponentUpdate(newProps, newState) {
-      if (newProps.status === this.state.status) {
+      /*if (newProps.status === this.state.status) {
         return false;
-      } else {
-        return true;
       }
+      else {
+        return true;
+      }*/
+
+      return newProps.status === this.state.status ? true : false;
     }
   }, {
     key: 'render',

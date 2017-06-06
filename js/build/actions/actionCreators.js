@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.startBoard = exports.clearBoard = exports.updateBoard = exports.changeCell = exports.initBoard = undefined;
+exports.countCells = exports.startBoard = exports.clearBoard = exports.updateBoard = exports.changeCell = exports.initBoard = undefined;
 
 var _actionTypes = require("../constants/action-types");
 
@@ -45,5 +45,13 @@ var startBoard = exports.startBoard = function startBoard(start) {
   return {
     type: _actionTypes.START_BOARD,
     gameIsRunning: start
+  };
+};
+
+var countCells = exports.countCells = function countCells(state, maxLength) {
+  return {
+    type: _actionTypes.COUNT_CELLS,
+    state: state,
+    maxLength: maxLength
   };
 };

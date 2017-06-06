@@ -20,6 +20,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var initialState = { board: [[{}]] };
 var store = exports.store = (0, _redux.createStore)(_root.rootReducer, initialState);
 
-store.dispatch((0, _actionCreators.initBoard)(25, 25)); //inits boarddata, not board display
+store.dispatch((0, _actionCreators.initBoard)(5, 5)); //inits boarddata, not board display
 
 window.store = store;

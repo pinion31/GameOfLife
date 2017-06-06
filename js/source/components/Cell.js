@@ -47,12 +47,14 @@ class Cell extends Component {
   }
 
   shouldComponentUpdate(newProps, newState) {
-    if (newProps.status === this.state.status) {
+    /*if (newProps.status === this.state.status) {
       return false;
     }
     else {
       return true;
-    }
+    }*/
+
+     return newProps.status === this.state.status? true:false;
   }
 
   render() {
