@@ -10,8 +10,7 @@ export const initBoard = (rowMax=10, columnMax=10) => {
           let max = Math.floor(100);
 
           let random = Math.floor(Math.random() * (max - min + 1)) + min;
-          //if (random > 50) { console.log("alive"); }
-          return random > 90? ALIVE: DEAD;
+          return random > 75? ALIVE: DEAD;
    };
 
   for (n=0; n < rowMax; n++) {
@@ -21,7 +20,6 @@ export const initBoard = (rowMax=10, columnMax=10) => {
        currentBoard[n].push({status:random(), neighborCount:0, row:n, column:i});
     }
   }
-  //console.log("currentBoard is " + currentBoard);
   return currentBoard;
 };
 
@@ -66,7 +64,6 @@ export const changeCell = (state, row, column, cellStatus) => {
       }
     }
   });
-
   return count;
   };
 

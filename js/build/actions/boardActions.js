@@ -21,8 +21,7 @@ var initBoard = exports.initBoard = function initBoard() {
     var max = Math.floor(100);
 
     var random = Math.floor(Math.random() * (max - min + 1)) + min;
-    //if (random > 50) { console.log("alive"); }
-    return random > 90 ? _actionTypes.ALIVE : _actionTypes.DEAD;
+    return random > 75 ? _actionTypes.ALIVE : _actionTypes.DEAD;
   };
 
   for (n = 0; n < rowMax; n++) {
@@ -32,7 +31,6 @@ var initBoard = exports.initBoard = function initBoard() {
       currentBoard[n].push({ status: random(), neighborCount: 0, row: n, column: i });
     }
   }
-  //console.log("currentBoard is " + currentBoard);
   return currentBoard;
 };
 
@@ -76,7 +74,6 @@ var countNeighborsForCell = function countNeighborsForCell(boardState, cell, max
       }
     }
   });
-
   return count;
 };
 

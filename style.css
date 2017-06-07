@@ -32,9 +32,6 @@ body {
 .board-holder {
   margin: auto; }
 
-.board {
-  background-color: #454545; }
-
 .row {
   display: flex;
   justify-content: center; }
