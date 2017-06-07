@@ -1,4 +1,4 @@
-
+import {DEAD, ALIVE} from "../constants/action-types";
 
 export const initBoard = (rowMax=10, columnMax=10) => {
   let i, n;
@@ -11,7 +11,7 @@ export const initBoard = (rowMax=10, columnMax=10) => {
 
           let random = Math.floor(Math.random() * (max - min + 1)) + min;
           //if (random > 50) { console.log("alive"); }
-          return random > 90? "cell cell-alive": "cell cell-dead";
+          return random > 90? ALIVE: DEAD;
    };
 
   for (n=0; n < rowMax; n++) {
@@ -27,12 +27,11 @@ export const initBoard = (rowMax=10, columnMax=10) => {
 
 //board as array
 export const clearBoard = (board) => {
-  console.log("board cleared " + board);
   let newState = Array.from(board);
 
-  newState.map((row) => {
+  newState = newState.map((row) => {
     return row.map((column) => {
-     column = {status:"dead", neighborCount:0, row:newState.indexOf(row), column:row.indexOf(column)};
+     return {status:DEAD, neighborCount:0, row:newState.indexOf(row), column:row.indexOf(column)};
     });
   });
 
@@ -42,7 +41,7 @@ export const clearBoard = (board) => {
 //receives and returns an Array as state
 export const changeCell = (state, row, column, cellStatus) => {
   let arr = Array.from(state);
-  arr [row][column].status = cellStatus === "dead"? "cell cell-dead":"cell cell-alive";
+  arr [row][column].status = cellStatus;
   return arr;
 };
 
@@ -54,20 +53,16 @@ export const changeCell = (state, row, column, cellStatus) => {
   let count = 0;
 
   let clockWiseCellOffset = [[-1,1], [0,1], [1,1], [1,0], [1,-1],
-  [0,-1], [-1,-1], [-1,0]];
+  [0,-1], [-1,-1], [-1,0]]; //offset for target cell for surrounding cells
 
-  // console.log(boardState);
   clockWiseCellOffset.map((cellOffset) => {
        cellOffset[0] += cell.row;
        cellOffset[1] += cell.column;
 
     //the following if statement ensures cell check is within bounds of board
     if (cellOffset[0] >= 0 && cellOffset[0] < maxLength && cellOffset[1] >= 0 && cellOffset[1] < maxLength) {
-       //console.log("looking for " + cellOffset[0] + " " + cellOffset[1]);
-       //console.log("looking for " + boardState[cellOffset[0]][cellOffset[1]].state);
-      if (boardState[cellOffset[0]][cellOffset[1]].status === "cell cell-alive") {
+      if (boardState[cellOffset[0]][cellOffset[1]].status === ALIVE) {
           count += 1;
-          //console.log(cellOffset[0] + " " + cellOffset[1] + " is alive");
       }
     }
   });
@@ -76,30 +71,30 @@ export const changeCell = (state, row, column, cellStatus) => {
   };
 
   const updateCellStatusFromCount = (status,count) => {
-    if (status === "cell cell-alive") {
+    if (status === ALIVE) {
       if (count <= 1 || count >= 4) {
-        return "cell cell-dead";
+        return DEAD;
       }
     }
     else {
       if (count === 3) {
-        return "cell cell-alive";
+        return ALIVE;
       }
     }
-
    return status;
   };
 
   //counts neighbors for every cell in a board
-  export const countNeighborsForEntireBoard = (state, maxLength) => {
-    //console.log("is state here too" + state);
+  export const updateAllCells = (state, maxLength) => {
     let newState = Array.from(state);
 
+    //1. interates through cells to count neighbors
     newState.map((row) => {row.map((col) => {
       col.neighborCount = countNeighborsForCell(newState,col, maxLength);
       });
     });
 
+    //updates all cells based on neighbor counts
     newState.map((row) => {row.map((col) => {
       col.status = updateCellStatusFromCount(col.status,col.neighborCount);
       });

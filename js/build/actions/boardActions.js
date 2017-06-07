@@ -3,6 +3,10 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.updateAllCells = exports.changeCell = exports.clearBoard = exports.initBoard = undefined;
+
+var _actionTypes = require("../constants/action-types");
+
 var initBoard = exports.initBoard = function initBoard() {
   var rowMax = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 10;
   var columnMax = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 10;
@@ -18,7 +22,7 @@ var initBoard = exports.initBoard = function initBoard() {
 
     var random = Math.floor(Math.random() * (max - min + 1)) + min;
     //if (random > 50) { console.log("alive"); }
-    return random > 90 ? "cell cell-alive" : "cell cell-dead";
+    return random > 90 ? _actionTypes.ALIVE : _actionTypes.DEAD;
   };
 
   for (n = 0; n < rowMax; n++) {
@@ -34,12 +38,11 @@ var initBoard = exports.initBoard = function initBoard() {
 
 //board as array
 var clearBoard = exports.clearBoard = function clearBoard(board) {
-  console.log("board cleared " + board);
   var newState = Array.from(board);
 
-  newState.map(function (row) {
+  newState = newState.map(function (row) {
     return row.map(function (column) {
-      column = { status: "dead", neighborCount: 0, row: newState.indexOf(row), column: row.indexOf(column) };
+      return { status: _actionTypes.DEAD, neighborCount: 0, row: newState.indexOf(row), column: row.indexOf(column) };
     });
   });
 
@@ -49,7 +52,7 @@ var clearBoard = exports.clearBoard = function clearBoard(board) {
 //receives and returns an Array as state
 var changeCell = exports.changeCell = function changeCell(state, row, column, cellStatus) {
   var arr = Array.from(state);
-  arr[row][column].status = cellStatus === "dead" ? "cell cell-dead" : "cell cell-alive";
+  arr[row][column].status = cellStatus;
   return arr;
 };
 
@@ -60,20 +63,16 @@ var countNeighborsForCell = function countNeighborsForCell(boardState, cell, max
 
   var count = 0;
 
-  var clockWiseCellOffset = [[-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1], [-1, 0]];
+  var clockWiseCellOffset = [[-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1], [-1, 0]]; //offset for target cell for surrounding cells
 
-  // console.log(boardState);
   clockWiseCellOffset.map(function (cellOffset) {
     cellOffset[0] += cell.row;
     cellOffset[1] += cell.column;
 
     //the following if statement ensures cell check is within bounds of board
     if (cellOffset[0] >= 0 && cellOffset[0] < maxLength && cellOffset[1] >= 0 && cellOffset[1] < maxLength) {
-      //console.log("looking for " + cellOffset[0] + " " + cellOffset[1]);
-      //console.log("looking for " + boardState[cellOffset[0]][cellOffset[1]].state);
-      if (boardState[cellOffset[0]][cellOffset[1]].status === "cell cell-alive") {
+      if (boardState[cellOffset[0]][cellOffset[1]].status === _actionTypes.ALIVE) {
         count += 1;
-        //console.log(cellOffset[0] + " " + cellOffset[1] + " is alive");
       }
     }
   });
@@ -82,30 +81,30 @@ var countNeighborsForCell = function countNeighborsForCell(boardState, cell, max
 };
 
 var updateCellStatusFromCount = function updateCellStatusFromCount(status, count) {
-  if (status === "cell cell-alive") {
+  if (status === _actionTypes.ALIVE) {
     if (count <= 1 || count >= 4) {
-      return "cell cell-dead";
+      return _actionTypes.DEAD;
     }
   } else {
     if (count === 3) {
-      return "cell cell-alive";
+      return _actionTypes.ALIVE;
     }
   }
-
   return status;
 };
 
 //counts neighbors for every cell in a board
-var countNeighborsForEntireBoard = exports.countNeighborsForEntireBoard = function countNeighborsForEntireBoard(state, maxLength) {
-  //console.log("is state here too" + state);
+var updateAllCells = exports.updateAllCells = function updateAllCells(state, maxLength) {
   var newState = Array.from(state);
 
+  //1. interates through cells to count neighbors
   newState.map(function (row) {
     row.map(function (col) {
       col.neighborCount = countNeighborsForCell(newState, col, maxLength);
     });
   });
 
+  //updates all cells based on neighbor counts
   newState.map(function (row) {
     row.map(function (col) {
       col.status = updateCellStatusFromCount(col.status, col.neighborCount);

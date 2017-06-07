@@ -16,6 +16,8 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _actionCreators = require('../actions/actionCreators');
 
+var _actionTypes = require('../constants/action-types');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -36,34 +38,25 @@ var Cell = function (_Component) {
       row: _this.props.row,
       column: _this.props.column,
       status: _this.props.status,
-      classProp: "cell cell-dead"
-    };
+      renderBoard: _this.props.renderBoard };
     return _this;
   }
 
-  /*
-  componentWillUpdate() {
-    this.setState({
-      status:this.props.status,
-    });
-  }*/
+  //toggles cell status between alive and dead from mouseclick
+
 
   _createClass(Cell, [{
-    key: 'setCellToLive',
-    value: function setCellToLive() {
-      store.dispatch((0, _actionCreators.changeCell)(this.state.row, this.state.column, "alive"));
+    key: 'setCellStatus',
+    value: function setCellStatus() {
+      var cellStatus = this.state.status === _actionTypes.DEAD ? _actionTypes.ALIVE : _actionTypes.DEAD;
+
+      store.dispatch((0, _actionCreators.changeCell)(this.state.row, this.state.column, cellStatus));
+
+      //triggers parent Board to rerender so status from board object matches status from this cell
+      this.state.renderBoard();
 
       this.setState({
-        status: "cell cell-alive"
-      });
-    }
-  }, {
-    key: 'setCellToDead',
-    value: function setCellToDead() {
-      store.dispatch((0, _actionCreators.changeCell)(store.getState(), this.state.row, this.state.column, "dead"));
-
-      this.setState({
-        status: "cell cell-dead"
+        status: cellStatus
       });
     }
 
@@ -80,19 +73,12 @@ var Cell = function (_Component) {
   }, {
     key: 'shouldComponentUpdate',
     value: function shouldComponentUpdate(newProps, newState) {
-      /*if (newProps.status === this.state.status) {
-        return false;
-      }
-      else {
-        return true;
-      }*/
-
-      return newProps.status === this.state.status ? true : false;
+      return newProps.status === this.state.status ? false : true;
     }
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('div', { className: this.state.status, onClick: this.setCellToLive.bind(this) });
+      return _react2.default.createElement('div', { className: this.state.status, onClick: this.setCellStatus.bind(this) });
     }
   }]);
 

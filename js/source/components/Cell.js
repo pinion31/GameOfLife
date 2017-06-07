@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Component, PropTypes} from 'react';
 import {changeCell} from '../actions/actionCreators';
+import {DEAD, ALIVE} from "../constants/action-types";
 
 class Cell extends Component {
 
@@ -11,30 +12,21 @@ class Cell extends Component {
       row:this.props.row,
       column:this.props.column,
       status:this.props.status,
-      classProp: "cell cell-dead",
+      renderBoard:this.props.renderBoard, //callback from Board Component
     };
   }
 
-  /*
-  componentWillUpdate() {
-    this.setState({
-      status:this.props.status,
-    });
-  }*/
+  //toggles cell status between alive and dead from mouseclick
+   setCellStatus() {
+    let cellStatus = this.state.status === DEAD? ALIVE:DEAD;
 
-  setCellToLive() {
-    store.dispatch(changeCell(this.state.row, this.state.column, "alive"));
+    store.dispatch(changeCell(this.state.row, this.state.column, cellStatus));
 
-    this.setState ({
-      status:"cell cell-alive",
-    });
-  }
-
-  setCellToDead() {
-    store.dispatch(changeCell(store.getState(),this.state.row, this.state.column, "dead"));
+    //triggers parent Board to rerender so status from board object matches status from this cell
+    this.state.renderBoard();
 
     this.setState ({
-      status:"cell cell-dead",
+      status:cellStatus,
     });
   }
 
@@ -47,22 +39,14 @@ class Cell extends Component {
   }
 
   shouldComponentUpdate(newProps, newState) {
-    /*if (newProps.status === this.state.status) {
-      return false;
-    }
-    else {
-      return true;
-    }*/
-
-     return newProps.status === this.state.status? true:false;
+     return newProps.status === this.state.status? false:true;
   }
 
   render() {
     return (
-      <div className= {this.state.status} onClick={this.setCellToLive.bind(this)}>
+      <div className= {this.state.status} onClick={this.setCellStatus.bind(this)}>
       </div>
     );
-
   }
 }
 

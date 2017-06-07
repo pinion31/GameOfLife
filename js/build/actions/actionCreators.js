@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.countCells = exports.startBoard = exports.clearBoard = exports.updateBoard = exports.changeCell = exports.initBoard = undefined;
+exports.updateBoard = exports.startBoard = exports.clearBoard = exports.changeCell = exports.initBoard = undefined;
 
 var _actionTypes = require("../constants/action-types");
 
@@ -27,13 +27,6 @@ var changeCell = exports.changeCell = function changeCell(cellRow, cellColumn, c
   };
 };
 
-var updateBoard = exports.updateBoard = function updateBoard(state) {
-  return {
-    type: _actionTypes.UPDATE_BOARD,
-    state: state
-  };
-};
-
 var clearBoard = exports.clearBoard = function clearBoard(state) {
   return {
     type: _actionTypes.CLEAR_BOARD,
@@ -48,9 +41,9 @@ var startBoard = exports.startBoard = function startBoard(start) {
   };
 };
 
-var countCells = exports.countCells = function countCells(state, maxLength) {
+var updateBoard = exports.updateBoard = function updateBoard(state, maxLength) {
   return {
-    type: _actionTypes.COUNT_CELLS,
+    type: _actionTypes.UPDATE_BOARD,
     state: state,
     maxLength: maxLength
   };

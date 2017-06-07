@@ -14,11 +14,6 @@ export const changeCell=(cellRow, cellColumn, cellStatus) =>  ({
   status:cellStatus,
 });
 
-export const updateBoard =(state) => ({
-  type: UPDATE_BOARD,
-  state: state,
-});
-
 export const clearBoard =(state) => ({
   type: CLEAR_BOARD,
   state: state,
@@ -29,8 +24,8 @@ export const startBoard = (start) => ({
   gameIsRunning: start,
 });
 
-export const countCells = (state, maxLength) => ({
-  type: COUNT_CELLS,
+export const updateBoard = (state, maxLength) => ({
+  type: UPDATE_BOARD,
   state:state,
   maxLength:maxLength,
 });
