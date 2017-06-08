@@ -221,17 +221,24 @@ var Board = function (_Component) {
     return _this;
   }
 
+  //sets size of board
+
+
   _createClass(Board, [{
-    key: 'reinitializeBoard',
-    value: function reinitializeBoard(size) {
+    key: 'resizeBoard',
+    value: function resizeBoard(size) {
       _BoardStore.store.dispatch((0, _actionCreators.initBoard)(size, size));
 
       var newBoard = _BoardStore.store.getState().board;
 
       this.setState({
-        board: newBoard
+        board: newBoard,
+        maxLength: size
       });
     }
+
+    //sets rate of board update
+
   }, {
     key: 'setBoardSpeed',
     value: function setBoardSpeed(speed) {
@@ -393,7 +400,7 @@ var Board = function (_Component) {
             null,
             _react2.default.createElement(
               _OptionsMenu2.default,
-              { resizeBoard: this.reinitializeBoard.bind(this), setBoardSpeed: this.setBoardSpeed.bind(this) },
+              { resizeBoard: this.resizeBoard.bind(this), setBoardSpeed: this.setBoardSpeed.bind(this) },
               ' '
             )
           )

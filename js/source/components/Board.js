@@ -31,6 +31,7 @@ class Board extends Component {
 
     this.setState({
       board:newBoard,
+      maxLength: size,
     });
 
   }
