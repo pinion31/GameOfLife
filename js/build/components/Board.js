@@ -199,6 +199,52 @@ var Board = function (_Component) {
                 this._generateBoard(_BoardStore.store.getState().board, this.state.board.length, this.state.board.length)
               )
             )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            null,
+            _react2.default.createElement(
+              _reactBootstrap.Nav,
+              { bsStyle: 'pills', className: 'buttonMenu top' },
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                { className: 'button' },
+                '15X15'
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                { className: 'button' },
+                '20X20'
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                { className: 'button' },
+                '25X25'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            null,
+            _react2.default.createElement(
+              _reactBootstrap.Nav,
+              { bsStyle: 'pills', className: 'buttonMenu' },
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                { className: 'button' },
+                'SLOW'
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                { className: 'button' },
+                'MEDIUM'
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                { className: 'button' },
+                'FAST'
+              )
+            )
           )
         )
       );
@@ -207,5 +253,12 @@ var Board = function (_Component) {
 
   return Board;
 }(_react.Component);
+
+Board.propTypes = {
+  board: _react.PropTypes.arrayOf(_react.PropTypes.arrayOf(_react.PropTypes.object)),
+  start: _react.PropTypes.func,
+  maxLength: _react.PropTypes.number,
+  generations: _react.PropTypes.number
+};
 
 exports.default = Board;

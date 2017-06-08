@@ -364,6 +364,52 @@ var Board = function (_Component) {
                 this._generateBoard(_BoardStore.store.getState().board, this.state.board.length, this.state.board.length)
               )
             )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            null,
+            _react2.default.createElement(
+              _reactBootstrap.Nav,
+              { bsStyle: 'pills', className: 'buttonMenu top' },
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                { className: 'button' },
+                '15X15'
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                { className: 'button' },
+                '20X20'
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                { className: 'button' },
+                '25X25'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Row,
+            null,
+            _react2.default.createElement(
+              _reactBootstrap.Nav,
+              { bsStyle: 'pills', className: 'buttonMenu' },
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                { className: 'button' },
+                'SLOW'
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                { className: 'button' },
+                'MEDIUM'
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                { className: 'button' },
+                'FAST'
+              )
+            )
           )
         )
       );
@@ -372,6 +418,13 @@ var Board = function (_Component) {
 
   return Board;
 }(_react.Component);
+
+Board.propTypes = {
+  board: _react.PropTypes.arrayOf(_react.PropTypes.arrayOf(_react.PropTypes.object)),
+  start: _react.PropTypes.func,
+  maxLength: _react.PropTypes.number,
+  generations: _react.PropTypes.number
+};
 
 exports.default = Board;
 },{"../actions/actionCreators":1,"../store/BoardStore":9,"./Cell":4,"react":443,"react-bootstrap":260,"react-dom":271}],4:[function(require,module,exports){
@@ -461,6 +514,12 @@ var Cell = function (_Component) {
 
   return Cell;
 }(_react.Component);
+
+Cell.propTypes = {
+  row: _react.PropTypes.number.isRequired,
+  column: _react.PropTypes.number.isRequired,
+  status: _react.PropTypes.string.isRequired,
+  renderBoard: _react.PropTypes.func.isRequired };
 
 exports.default = Cell;
 },{"../actions/actionCreators":1,"../constants/action-types":5,"react":443,"react-dom":271}],5:[function(require,module,exports){

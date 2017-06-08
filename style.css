@@ -24,7 +24,8 @@ body {
   font-size: 30px; }
 
 .nav-align {
-  margin-right: 40px; }
+  margin-right: 40px;
+  color: white; }
 
 .action-button {
   text-align: center; }
@@ -35,6 +36,24 @@ body {
 .row {
   display: flex;
   justify-content: center; }
+  .row:first-child {
+    margin-top: 10px; }
+
+.top {
+  margin-top: 10px; }
+
+.buttonMenu {
+  background-color: #454545;
+  width: 500px;
+  display: flex;
+  justify-content: center; }
+
+.button {
+  background-color: #808080;
+  margin: 20px 25px;
+  border: 2px solid white; }
+  .button a {
+    color: white; }
 
 .cell-dead {
   background-color: black; }

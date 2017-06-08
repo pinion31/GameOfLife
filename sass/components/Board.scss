@@ -5,4 +5,29 @@
 .row {
   display: flex;
   justify-content: center;
+  &:first-child {
+    margin-top: 10px;
+  }
+}
+
+.top {
+  margin-top: 10px;
+}
+
+.buttonMenu {
+  background-color: $top-banner-bg-color;
+  width: 500px;
+  display: flex;
+  justify-content: center;
+
+}
+
+.button {
+  background-color: $footer-button-color;
+  margin: 20px 25px;
+  border: 2px solid $font-white;
+
+  a {
+    color:$font-white;
+  }
 }

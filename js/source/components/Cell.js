@@ -50,4 +50,11 @@ class Cell extends Component {
   }
 }
 
+Cell.propTypes = {
+   row:PropTypes.number.isRequired,
+   column:PropTypes.number.isRequired,
+   status:PropTypes.string.isRequired,
+   renderBoard:PropTypes.func.isRequired, //callback from Board Component
+};
+
 export default Cell

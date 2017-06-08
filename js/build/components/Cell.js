@@ -85,4 +85,10 @@ var Cell = function (_Component) {
   return Cell;
 }(_react.Component);
 
+Cell.propTypes = {
+  row: _react.PropTypes.number.isRequired,
+  column: _react.PropTypes.number.isRequired,
+  status: _react.PropTypes.string.isRequired,
+  renderBoard: _react.PropTypes.func.isRequired };
+
 exports.default = Cell;

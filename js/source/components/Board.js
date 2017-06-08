@@ -5,7 +5,7 @@ import Cell from "./Cell";
 import BoardStore from "../store/BoardStore";
 import {store} from "../store/BoardStore";
 import {initBoard, clearBoard, updateBoard} from '../actions/actionCreators';
-import {Grid, Row, Col, Clearfix, Navbar, Nav, NavItem} from 'react-bootstrap';
+import {Grid, Row, Col, Clearfix, Navbar, Nav, NavItem, Button} from 'react-bootstrap';
 
 
 class Board extends Component {
@@ -115,10 +115,31 @@ class Board extends Component {
       </div>
       </Col>
       </Row>
+      <Row>
+        <Nav bsStyle="pills" className="buttonMenu top">
+            <Button className="button">15X15</Button>
+            <Button className="button">20X20</Button>
+            <Button className="button">25X25</Button>
+        </Nav>
+      </Row>
+       <Row>
+        <Nav bsStyle="pills" className="buttonMenu">
+             <Button className="button">SLOW</Button>
+             <Button className="button">MEDIUM</Button>
+             <Button className="button">FAST</Button>
+        </Nav>
+      </Row>
     </Grid>
-    </div>
-    );
+   </div> );
   }
 }
+
+Board.propTypes = {
+   board:PropTypes.arrayOf(
+      PropTypes.arrayOf(PropTypes.object)),
+   start:PropTypes.func,
+   maxLength:PropTypes.number,
+   generations:PropTypes.number,
+};
 
 export default Board
