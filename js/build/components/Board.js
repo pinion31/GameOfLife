@@ -26,6 +26,10 @@ var _actionCreators = require('../actions/actionCreators');
 
 var _reactBootstrap = require('react-bootstrap');
 
+var _OptionsMenu = require('./OptionsMenu');
+
+var _OptionsMenu2 = _interopRequireDefault(_OptionsMenu);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -46,12 +50,31 @@ var Board = function (_Component) {
       board: _BoardStore.store.getState().board,
       start: null,
       maxLength: 15,
-      generations: 0
+      generations: 0,
+      genSpeed: 1000
     };
     return _this;
   }
 
   _createClass(Board, [{
+    key: 'reinitializeBoard',
+    value: function reinitializeBoard(size) {
+      _BoardStore.store.dispatch((0, _actionCreators.initBoard)(size, size));
+
+      var newBoard = _BoardStore.store.getState().board;
+
+      this.setState({
+        board: newBoard
+      });
+    }
+  }, {
+    key: 'setBoardSpeed',
+    value: function setBoardSpeed(speed) {
+      this.setState({
+        genSpeed: speed
+      });
+    }
+  }, {
     key: 'updateBoard',
     value: function updateBoard() {
 
@@ -111,7 +134,7 @@ var Board = function (_Component) {
     key: 'startBoard',
     value: function startBoard(shouldStart) {
       if (shouldStart) {
-        this.state.start = setInterval(this.updateBoard.bind(this), 1000);
+        this.state.start = setInterval(this.updateBoard.bind(this), this.state.genSpeed);
       } else {
         clearInterval(this.state.start);
       }
@@ -204,46 +227,9 @@ var Board = function (_Component) {
             _reactBootstrap.Row,
             null,
             _react2.default.createElement(
-              _reactBootstrap.Nav,
-              { bsStyle: 'pills', className: 'buttonMenu top' },
-              _react2.default.createElement(
-                _reactBootstrap.Button,
-                { className: 'button' },
-                '15X15'
-              ),
-              _react2.default.createElement(
-                _reactBootstrap.Button,
-                { className: 'button' },
-                '20X20'
-              ),
-              _react2.default.createElement(
-                _reactBootstrap.Button,
-                { className: 'button' },
-                '25X25'
-              )
-            )
-          ),
-          _react2.default.createElement(
-            _reactBootstrap.Row,
-            null,
-            _react2.default.createElement(
-              _reactBootstrap.Nav,
-              { bsStyle: 'pills', className: 'buttonMenu' },
-              _react2.default.createElement(
-                _reactBootstrap.Button,
-                { className: 'button' },
-                'SLOW'
-              ),
-              _react2.default.createElement(
-                _reactBootstrap.Button,
-                { className: 'button' },
-                'MEDIUM'
-              ),
-              _react2.default.createElement(
-                _reactBootstrap.Button,
-                { className: 'button' },
-                'FAST'
-              )
+              _OptionsMenu2.default,
+              { resizeBoard: this.reinitializeBoard.bind(this), setBoardSpeed: this.setBoardSpeed.bind(this) },
+              ' '
             )
           )
         )
