@@ -1,1 +1,11 @@
-{ "presets":["es2015"]}
+{ "presets":["es2015"],
+
+
+ "plugins": [
+    [
+      "envify",
+      {
+        "process.env.{ENV_NAME}": ["production"]
+      }
+    ]
+  ]}
