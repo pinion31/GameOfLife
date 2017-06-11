@@ -39,5 +39,9 @@
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.5.4",
     "redux": "^3.6.0"
+  },
+  "dependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
   }
 }
